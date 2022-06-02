@@ -12,7 +12,7 @@ namespace UITest.Drivers
 {
     public class SeleniumDriver
     {
-        private IWebDriver driver;
+        public static IWebDriver? driver;
         private readonly ScenarioContext _scenarioContext;
         public SeleniumDriver (ScenarioContext scenarioContext)  => _scenarioContext = scenarioContext;
        
@@ -20,7 +20,7 @@ namespace UITest.Drivers
         {
             var chromeOptions = new ChromeOptions();
 
-            WebDriver driver = new ChromeDriver();
+            driver = new ChromeDriver();
 
             //Set the driver
             _scenarioContext.Set(driver, "WebDriver");

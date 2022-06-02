@@ -10,7 +10,7 @@ namespace UITest.StepDefinitions
     [Binding]
     public sealed class DeleteASpaceStepDefinitions
     {
-        public static IWebDriver driver = Hooks.HookInitialization.driver;
+        private static IWebDriver driver = Drivers.SeleniumDriver.driver;
         private string spaceName;
 
         [When(@"The user clicks on More button")]

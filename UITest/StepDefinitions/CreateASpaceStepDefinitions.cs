@@ -10,9 +10,9 @@ namespace UITest.StepDefinitions
     [Binding]
     public sealed class CreateASpaceStepDefinitions
     {
-        public readonly ScenarioContext _scenarioContext;
-        public static IWebDriver driver = Hooks.HookInitialization.driver;
-        public static bool checkSpacePage = Hooks.HookInitialization.checkSpacePage;
+        //public IWebDriver driver;
+        private readonly ScenarioContext _scenarioContext;
+        private bool checkSpacePage = Hooks.HookInitialization.checkSpacePage;
         private string spaceName;
 
         public CreateASpaceStepDefinitions(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
@@ -29,7 +29,7 @@ namespace UITest.StepDefinitions
         //        driver = _scenarioContext.Get<SeleniumDriver>("SeleniumDriver").Setup();
         //        driver.Url = "https://hub.knime.com/";
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e);
         //        throw new Exception("The web page is not reachable", e);
@@ -44,12 +44,12 @@ namespace UITest.StepDefinitions
         //    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(5));
         //    try
         //    {
-        //         var AcceptCookiesPopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-        //            .ElementIsVisible(By.XPath("//div[@class='controls']/button[@class='accept-button button primary']")));
+        //        var AcceptCookiesPopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+        //           .ElementIsVisible(By.XPath("//div[@class='controls']/button[@class='accept-button button primary']")));
 
-        //         Locators.LoginPageLocators.AcceptCookiesButtton(driver).Click();
+        //        Locators.LoginPageLocators.AcceptCookiesButtton(driver).Click();
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e);
         //        throw new Exception("The accept button does not found!", e);
@@ -61,10 +61,10 @@ namespace UITest.StepDefinitions
         //{
         //    try
         //    {
-        //        if(Locators.LoginPageLocators.SignInButton(driver).Displayed)
+        //        if (Locators.LoginPageLocators.SignInButton(driver).Displayed)
         //            Locators.LoginPageLocators.SignInButton(driver).Click();
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e);
         //        throw new Exception("The Sign in button does not found!");
@@ -80,10 +80,10 @@ namespace UITest.StepDefinitions
         //        var AcceptCookiesPopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
         //            .ElementIsVisible(By.XPath("//form[@class='user-login-form']")));
 
-        //             Locators.LoginPageLocators.UsernameEntry(driver).SendKeys(username);
-        //             Locators.LoginPageLocators.PasswordEntry(driver).SendKeys(p1);
+        //        Locators.LoginPageLocators.UsernameEntry(driver).SendKeys(username);
+        //        Locators.LoginPageLocators.PasswordEntry(driver).SendKeys(p1);
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e);
         //        throw new Exception("Cannot insert inputs");
@@ -97,7 +97,7 @@ namespace UITest.StepDefinitions
         //    {
         //        Locators.LoginPageLocators.SignInFormButton(driver).Click();
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        Console.WriteLine(e);
         //        throw new Exception("Cannot login to Knime.com");
@@ -123,7 +123,7 @@ namespace UITest.StepDefinitions
         //{
         //    try
         //    {
-        //            driver.Url = "https://hub.knime.com/fbaqban/spaces";
+        //        driver.Url = "https://hub.knime.com/fbaqban/spaces";
         //    }
         //    catch (Exception e)
         //    {
@@ -132,24 +132,24 @@ namespace UITest.StepDefinitions
         //    }
         //}
 
-        [Then(@"The spaces page is displayed")]
-        public void ThenTheSpacesPageIsDisplayed()
-        {
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+        //[Then(@"The spaces page is displayed")]
+        //public void ThenTheSpacesPageIsDisplayed()
+        //{
+        //    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
 
-            try
-            {
-                var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                    .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
+        //    try
+        //    {
+        //        var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+        //            .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
 
-                checkSpacePage = Locators.SpacesPageLocators.SpacesPageVisibility(driver).Displayed;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw new Exception("Space page is not loaded!");
-            }
-        }
+        //        checkSpacePage = Locators.SpacesPageLocators.SpacesPageVisibility(driver).Displayed;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e);
+        //        throw new Exception("Space page is not loaded!");
+        //    }
+        //}
 
         [When(@"The user clicks on create a new public space")]
         public void WhenTheUserClicksOnCreateANewPublicSpace()
@@ -157,7 +157,7 @@ namespace UITest.StepDefinitions
             try
             {
                 if (checkSpacePage == true)
-                    Locators.SpacesPageLocators.NewPublicSpace(driver).Click();
+                    Locators.SpacesPageLocators.NewPublicSpace(Drivers.SeleniumDriver.driver).Click();
             }
             catch(Exception e)
             {
@@ -169,15 +169,16 @@ namespace UITest.StepDefinitions
         [Then(@"Create a new public space page and successful creation message are displayed")]
         public void ThenCreateANewPublicSpacePageAndSuccessfulCreationMessageAreDisplayed()
         {
-            //var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(Drivers.SeleniumDriver.driver, TimeSpan.FromSeconds(10));
 
             try
             {
-                //var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                //    .ElementIsVisible(By.XPath("//span[contains(text(),'Your new space was created successfully!')]")));
-                
+                var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                    .ElementIsVisible(By.XPath("//span[contains(text(),'Your new space was created successfully!')]")));
+
                 Boolean successfulMessage = Locators.NewSpacePageLocators
-                    .PublicSpaceCreationMessage(driver).Displayed == true;
+                    .PublicSpaceCreationMessage(Drivers.SeleniumDriver.driver).Displayed == true;
             }
             catch(Exception e)
             {
@@ -191,7 +192,7 @@ namespace UITest.StepDefinitions
             try
             {
                 Locators.NewSpacePageLocators
-                    .ReturnToSpacesPageButton(driver).Click();
+                    .ReturnToSpacesPageButton(Drivers.SeleniumDriver.driver).Click();
             }
             catch(Exception e)
             {
@@ -203,7 +204,7 @@ namespace UITest.StepDefinitions
         [Then(@"The created space is visible")]
         public void ThenTheCreatedSpaceIsVisible()
         {
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(Drivers.SeleniumDriver.driver, TimeSpan.FromSeconds(20));
 
             try
             {
@@ -211,10 +212,10 @@ namespace UITest.StepDefinitions
                     .ElementIsVisible(By.XPath("//h3[contains(text(),'New space')]")));
 
                 spaceName = Locators.SpacesPageLocators
-                    .RetrieveCreatedSpaceName(driver).Text;
+                    .RetrieveCreatedSpaceName(Drivers.SeleniumDriver.driver).Text;
 
                 Assert.Equal(spaceName,
-                    Locators.SpacesPageLocators.CreatedSpaceRange(driver).Text);
+                    Locators.SpacesPageLocators.CreatedSpaceRange(Drivers.SeleniumDriver.driver).Text);
             }
             catch (Exception e)
             {
