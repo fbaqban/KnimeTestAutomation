@@ -12,7 +12,7 @@ namespace UITest.Drivers
 {
     public class SeleniumDriver
     {
-        public static IWebDriver? driver;
+        private IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
         public SeleniumDriver (ScenarioContext scenarioContext)  => _scenarioContext = scenarioContext;
        
