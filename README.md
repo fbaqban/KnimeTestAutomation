@@ -6,6 +6,7 @@ You can Contribute by giving your scripts written in C# and you think are amazin
 
 ## Instructions
 Clone this Repository in Visual Studio or any code editor
+
 Right click on the Solution
 Build the Solution
 Open Test Explorer window where you can see test scenarios
