@@ -12,12 +12,16 @@ namespace UITest.Hooks
         public static bool checkSpacePage;
         public HookInitialization(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
 
-        [BeforeScenario]
-        public void BeforeScenarioWithTag()
+        [BeforeScenario(Order = 0)]
+        public void CreateADriver()
         {
             SeleniumDriver seleniumDriver = new SeleniumDriver(_scenarioContext);
             _scenarioContext.Set(seleniumDriver, "SeleniumDriver");
+        }
 
+        [BeforeScenario(Order = 1)]
+        public void NavigateTheUrl()
+        {
             //The user opens the browser and launch the application
             try
             {
@@ -29,7 +33,11 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("The web page is not reachable", e);
             }
+        }
 
+        [BeforeScenario(Order = 2)]
+        public void AcceptCookies()
+        {
             //The user accepts the cookies
             var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
             try
@@ -44,7 +52,10 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("The accept button does not found!", e);
             }
-
+        }
+        [BeforeScenario(Order = 3)]
+        public void ClickFirstSignInButton()
+        {
             //The user clicks on sign in button
             try
             {
@@ -56,8 +67,13 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("The Sign in button does not found!");
             }
-
+        }
+        [BeforeScenario(Order = 4)]
+        public void EnterLoginData()
+        {
             //The user login with given username and password
+            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+
             try
             {
                 var AcceptCookiesPopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
@@ -71,7 +87,10 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("Cannot insert inputs");
             }
-
+        }
+        [BeforeScenario(Order = 5)]
+        public void ClickFinalSignInbutton()
+        {
             //The user sign in
             try
             {
@@ -82,7 +101,10 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("Cannot login to Knime.com");
             }
-
+        }
+        [BeforeScenario(Order = 6)]
+        public void ClickProfilePicture()
+        {
             //The user clicks on his profile picture
             try
             {
@@ -93,7 +115,10 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("Avatar is not found!");
             }
-
+        }
+        [BeforeScenario(Order = 7)]
+        public void NavigateSpacesPage()
+        {
             //The user clicks on spaces item
             try
             {
@@ -104,6 +129,11 @@ namespace UITest.Hooks
                 Console.WriteLine(e);
                 throw new Exception("Cannot click on Spaces!");
             }
+        }
+        [BeforeScenario(Order = 8)]
+        public void SpagesPageVisibility()
+        {
+            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
 
             //The spaces page is displayed
             try
