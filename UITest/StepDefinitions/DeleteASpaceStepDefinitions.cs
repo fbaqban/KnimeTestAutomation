@@ -10,7 +10,7 @@ namespace UITest.StepDefinitions
     [Binding]
     public sealed class DeleteASpaceStepDefinitions
     {
-        private static IWebDriver driver = Drivers.SeleniumDriver.driver;
+        IWebDriver driver = Hooks.HookInitialization.driver;
         private string spaceName;
 
         [When(@"The user clicks on More button")]
@@ -26,7 +26,7 @@ namespace UITest.StepDefinitions
 
                 Locators.NewSpacePageLocators.SpaceMoreButton(driver).Click();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception("More button is not found!");
@@ -46,7 +46,7 @@ namespace UITest.StepDefinitions
 
                 Locators.NewSpacePageLocators.DeleteSpaceButton(driver).Click();
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception("Delete space button is not found!");
@@ -86,7 +86,7 @@ namespace UITest.StepDefinitions
                 Locators.NewSpacePageLocators
                     .SpaceNameTextbox(driver).SendKeys(spaceName);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception("Cannot enter the space name!");
@@ -131,7 +131,7 @@ namespace UITest.StepDefinitions
                 Boolean successfulMessage = Locators.SpacesPageLocators
                     .PublicSpaceDeletionMessage(driver).Displayed == true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception("The public space message is not displayed!");
@@ -146,12 +146,10 @@ namespace UITest.StepDefinitions
             try
             {
                 var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                    .ElementIsVisible(By.XPath("//button[@class=('dismiss-button function-button single')]")));
+                    .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
 
-                //Assert.DoesNotContain();
-
-                //Assert.DoesNotContain(spaceName,
-                //    Locators.SpacesPageLocators.CreatedSpaceRange(driver).Text);
+                Boolean createdSpaceExistance = driver.FindElement(By.XPath("//div[@class=('card-body')]/h3[contains(text(),'New space')]"))
+                    .Displayed == false;
             }
             catch (Exception e)
             {

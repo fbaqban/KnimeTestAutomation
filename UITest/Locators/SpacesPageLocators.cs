@@ -39,10 +39,6 @@ namespace UITest.Locators
         {
             return driver.FindElement(By.XPath("//h3[contains(text(),'New space')]"));
         }
-        public static IWebElement DeletedSpaceExistance(IWebDriver driver)
-        {
-            return driver.FindElement(By.XPath("//button[@class=('dismiss-button function-button single')]"));
-        }
-
+        
     }
 }
