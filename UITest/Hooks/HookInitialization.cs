@@ -10,6 +10,7 @@ namespace UITest.Hooks
         public static IWebDriver driver;
         private readonly ScenarioContext _scenarioContext;
         public static bool checkSpacePage;
+        private string spaceName;
         public HookInitialization(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
 
         [BeforeScenario(Order = 0)]
@@ -147,6 +148,64 @@ namespace UITest.Hooks
             {
                 Console.WriteLine(e);
                 throw new Exception("Space page is not loaded!");
+            }
+        }
+        [BeforeScenario(Order = 9)]
+        public void DeletePreviousPublicSpaces()
+        {
+            var wait = new OpenQA.Selenium.Support.UI
+                .WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            string xpathPreviousSpace = "//div[@class=('card-body')]/h3[contains(text(),'New space')]";
+
+            //The user delete previous public spaces
+            try 
+            {
+                if (driver.FindElements(By.XPath(xpathPreviousSpace)).Count != 0)
+                {
+                    Locators.SpacesPageLocators.CreatedSpaceRange(driver).Click();
+
+                    var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                            .ElementIsVisible(By.XPath("//button[@class=('toggle function-button single')]")));
+
+
+                    Locators.NewSpacePageLocators.SpaceMoreButton(driver).Click();
+
+                    var deleteSpaceButtonVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                            .ElementIsVisible(By.XPath("//button[contains(text(),'Delete space')]")));
+
+                    Locators.NewSpacePageLocators.DeleteSpaceButton(driver).Click();
+
+
+                    var deleteSpacePopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                            .ElementIsVisible(By.XPath("//div[@class=('inner')]/div[@class='header']")));
+
+                    Boolean deleteThisSpacePopup = Locators.NewSpacePageLocators
+                        .DeleteSpacePopup(driver)
+                        .Displayed == true;
+
+                    spaceName = Locators.NewSpacePageLocators
+                        .RetrieveSpaceName(driver).Text;
+
+                    Locators.NewSpacePageLocators
+                        .SpaceNameTextbox(driver).SendKeys(spaceName);
+
+                    Boolean deleteSpaceButton = Locators.NewSpacePageLocators
+                        .FinalDeleteSpaceButton(driver).Enabled == true;
+
+                    Locators.NewSpacePageLocators
+                        .FinalDeleteSpaceButton(driver).Click();
+
+                    var deletedMessageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                        .ElementIsVisible(By.XPath("//span[contains(text(),'Space was deleted successfully!')]")));
+
+                    Boolean successfulMessage = Locators.SpacesPageLocators
+                        .PublicSpaceDeletionMessage(driver).Displayed == true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception("Previous public spaces could not remove!");
             }
         }
 

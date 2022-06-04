@@ -10,7 +10,7 @@ namespace UITest.StepDefinitions
     [Binding]
     public sealed class CreateASpaceStepDefinitions
     {
-        IWebDriver driver = Hooks.HookInitialization.driver;
+        //IWebDriver driver = Hooks.HookInitialization.driver;
         private readonly ScenarioContext _scenarioContext;
         private bool checkSpacePage = Hooks.HookInitialization.checkSpacePage;
         private string spaceName;
@@ -20,14 +20,16 @@ namespace UITest.StepDefinitions
         [Then(@"The spaces page is displayed")]
         public void ThenTheSpacesPageIsDisplayed()
         {
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            var wait = new OpenQA.Selenium.Support.UI
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(20));
 
             try
             {
                 var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
 
-                checkSpacePage = Locators.SpacesPageLocators.SpacesPageVisibility(driver).Displayed;
+                checkSpacePage = Locators.SpacesPageLocators
+                    .SpacesPageVisibility(Hooks.HookInitialization.driver).Displayed;
             }
             catch (Exception e)
             {
@@ -39,10 +41,17 @@ namespace UITest.StepDefinitions
         [When(@"The user clicks on create a new public space")]
         public void WhenTheUserClicksOnCreateANewPublicSpace()
         {
+            var wait = new OpenQA.Selenium.Support.UI.
+                WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(2000));
+
             try
             {
+                var createNewPublicSpaceAreaVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                    .ElementIsVisible(By.XPath("//div[@class=('buttons')]")));
+
                 if (checkSpacePage == true)
-                    Locators.SpacesPageLocators.NewPublicSpace(driver).Click();
+                    Locators.SpacesPageLocators
+                        .NewPublicSpace(Hooks.HookInitialization.driver).Click();
             }
             catch (Exception e)
             {
@@ -55,7 +64,8 @@ namespace UITest.StepDefinitions
         public void ThenCreateANewPublicSpacePageAndSuccessfulCreationMessageAreDisplayed()
         {
 
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            var wait = new OpenQA.Selenium.Support.UI
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(20));
 
             try
             {
@@ -63,7 +73,7 @@ namespace UITest.StepDefinitions
                     .ElementIsVisible(By.XPath("//span[contains(text(),'Your new space was created successfully!')]")));
 
                 Boolean successfulMessage = Locators.NewSpacePageLocators
-                    .PublicSpaceCreationMessage(driver).Displayed == true;
+                    .PublicSpaceCreationMessage(Hooks.HookInitialization.driver).Displayed == true;
             }
             catch (Exception e)
             {
@@ -77,7 +87,7 @@ namespace UITest.StepDefinitions
             try
             {
                 Locators.NewSpacePageLocators
-                    .ReturnToSpacesPageButton(driver).Click();
+                    .ReturnToSpacesPageButton(Hooks.HookInitialization.driver).Click();
             }
             catch (Exception e)
             {
@@ -89,7 +99,8 @@ namespace UITest.StepDefinitions
         [Then(@"The created space is visible")]
         public void ThenTheCreatedSpaceIsVisible()
         {
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            var wait = new OpenQA.Selenium.Support.UI
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(20));
 
             try
             {
@@ -97,10 +108,11 @@ namespace UITest.StepDefinitions
                     .ElementIsVisible(By.XPath("//h3[contains(text(),'New space')]")));
 
                 spaceName = Locators.SpacesPageLocators
-                    .RetrieveCreatedSpaceName(driver).Text;
+                    .RetrieveCreatedSpaceName(Hooks.HookInitialization.driver).Text;
 
                 Assert.Equal(spaceName,
-                    Locators.SpacesPageLocators.CreatedSpaceRange(driver).Text);
+                    Locators.SpacesPageLocators
+                    .CreatedSpaceRange(Hooks.HookInitialization.driver).Text);
             }
             catch (Exception e)
             {

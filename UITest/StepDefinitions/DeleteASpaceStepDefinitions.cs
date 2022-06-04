@@ -10,21 +10,21 @@ namespace UITest.StepDefinitions
     [Binding]
     public sealed class DeleteASpaceStepDefinitions
     {
-        IWebDriver driver = Hooks.HookInitialization.driver;
+        //IWebDriver driver = Hooks.HookInitialization.driver;
         private string spaceName;
 
         [When(@"The user clicks on More button")]
         public void WhenTheUserClicksOnMoreButton()
         {
             var wait = new OpenQA.Selenium.Support.UI
-                .WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(5));
 
             try
             {
                 var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//button[@class=('toggle function-button single')]")));
 
-                Locators.NewSpacePageLocators.SpaceMoreButton(driver).Click();
+                Locators.NewSpacePageLocators.SpaceMoreButton(Hooks.HookInitialization.driver).Click();
             }
             catch (Exception e)
             {
@@ -37,14 +37,14 @@ namespace UITest.StepDefinitions
         public void WhenTheUserClicksOnDeleteTheSpaceButton()
         {
             var wait = new OpenQA.Selenium.Support.UI
-                .WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(5));
 
             try
             {
-                var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                var deleteSpaceButtonVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//button[contains(text(),'Delete space')]")));
 
-                Locators.NewSpacePageLocators.DeleteSpaceButton(driver).Click();
+                Locators.NewSpacePageLocators.DeleteSpaceButton(Hooks.HookInitialization.driver).Click();
             }
             catch (Exception e)
             {
@@ -57,15 +57,15 @@ namespace UITest.StepDefinitions
         public void ThenTheDeleteThisSpacePopupIsDisplayed()
         {
             var wait = new OpenQA.Selenium.Support.UI
-                .WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(5));
 
             try
             {
-                var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                var deleteSpacePopupVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//div[@class=('inner')]/div[@class='header']")));
 
                 Boolean deleteThisSpacePopup = Locators.NewSpacePageLocators
-                    .DeleteSpacePopup(driver)
+                    .DeleteSpacePopup(Hooks.HookInitialization.driver)
                     .Displayed == true;
             }
             catch (Exception e)
@@ -81,10 +81,10 @@ namespace UITest.StepDefinitions
             try
             {
                 spaceName = Locators.NewSpacePageLocators
-                    .RetrieveSpaceName(driver).Text;
+                    .RetrieveSpaceName(Hooks.HookInitialization.driver).Text;
 
                 Locators.NewSpacePageLocators
-                    .SpaceNameTextbox(driver).SendKeys(spaceName);
+                    .SpaceNameTextbox(Hooks.HookInitialization.driver).SendKeys(spaceName);
             }
             catch (Exception e)
             {
@@ -99,7 +99,7 @@ namespace UITest.StepDefinitions
             try
             {
                 Boolean deleteSpaceButton = Locators.NewSpacePageLocators
-                    .FinalDeleteSpaceButton(driver).Enabled == true;
+                    .FinalDeleteSpaceButton(Hooks.HookInitialization.driver).Enabled == true;
             }
             catch (Exception e)
             {
@@ -114,7 +114,7 @@ namespace UITest.StepDefinitions
             try
             {
                 Locators.NewSpacePageLocators
-                    .FinalDeleteSpaceButton(driver).Click();
+                    .FinalDeleteSpaceButton(Hooks.HookInitialization.driver).Click();
             }
             catch (Exception e)
             {
@@ -129,7 +129,7 @@ namespace UITest.StepDefinitions
             try
             {
                 Boolean successfulMessage = Locators.SpacesPageLocators
-                    .PublicSpaceDeletionMessage(driver).Displayed == true;
+                    .PublicSpaceDeletionMessage(Hooks.HookInitialization.driver).Displayed == true;
             }
             catch (Exception e)
             {
@@ -141,15 +141,17 @@ namespace UITest.StepDefinitions
         [Then(@"The user checks existance of the deleted space")]
         public void ThenTheUserChecksExistanceOfTheDeletedSpace()
         {
-            var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            var wait = new OpenQA.Selenium.Support.UI
+                .WebDriverWait(Hooks.HookInitialization.driver, TimeSpan.FromSeconds(400));
 
             try
             {
-                var newPublicSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                var returnToSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
 
-                Boolean createdSpaceExistance = driver.FindElement(By.XPath("//div[@class=('card-body')]/h3[contains(text(),'New space')]"))
-                    .Displayed == false;
+                Assert.Equal(Hooks.HookInitialization.driver
+                    .FindElements(By.XPath(("//div[@class=('card-body')]/h3[contains(text(),'New space')]"))).Count, 0);
+
             }
             catch (Exception e)
             {
