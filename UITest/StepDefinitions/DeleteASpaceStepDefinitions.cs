@@ -149,8 +149,8 @@ namespace UITest.StepDefinitions
                 var returnToSpacePageVisibility = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                     .ElementIsVisible(By.XPath("//div[@class='profile-short-bio']")));
 
-                Assert.Equal(Hooks.HookInitialization.driver
-                    .FindElements(By.XPath(("//div[@class=('card-body')]/h3[contains(text(),'New space')]"))).Count, 0);
+                Assert.Empty( Hooks.HookInitialization.driver
+                    .FindElements(By.XPath(("//div[@class=('card-body')]/h3[contains(text(),'New space')]"))));
 
             }
             catch (Exception e)
