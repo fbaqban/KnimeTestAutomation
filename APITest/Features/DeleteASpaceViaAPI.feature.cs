@@ -19,7 +19,7 @@ namespace APITest.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class CreateASpaceViaAPIFeature : object, Xunit.IClassFixture<CreateASpaceViaAPIFeature.FixtureData>, System.IDisposable
+    public partial class DeleteASpaceViaAPIFeature : object, Xunit.IClassFixture<DeleteASpaceViaAPIFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace APITest.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "CreateASpaceViaAPI.feature"
+#line 1 "DeleteASpaceViaAPI.feature"
 #line hidden
         
-        public CreateASpaceViaAPIFeature(CreateASpaceViaAPIFeature.FixtureData fixtureData, APITest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public DeleteASpaceViaAPIFeature(DeleteASpaceViaAPIFeature.FixtureData fixtureData, APITest_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace APITest.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "CreateASpaceViaAPI", "A logged in user create a space using API", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "DeleteASpaceViaAPI", "A logged in user delete a created space using api", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,22 +80,16 @@ namespace APITest.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create a space with logged in user _ successful _ API")]
-        [Xunit.TraitAttribute("FeatureTitle", "CreateASpaceViaAPI")]
-        [Xunit.TraitAttribute("Description", "Create a space with logged in user _ successful _ API")]
-        [Xunit.TraitAttribute("Category", "API")]
-        [Xunit.TraitAttribute("Category", "loggedInUser")]
-        [Xunit.TraitAttribute("Category", "successful")]
-        [Xunit.TraitAttribute("Category", "createSpace")]
-        public virtual void CreateASpaceWithLoggedInUser_Successful_API()
+        [Xunit.SkippableFactAttribute(DisplayName="Delete a space with logged in user _ successful _ API")]
+        [Xunit.TraitAttribute("FeatureTitle", "DeleteASpaceViaAPI")]
+        [Xunit.TraitAttribute("Description", "Delete a space with logged in user _ successful _ API")]
+        [Xunit.TraitAttribute("Category", "tag1")]
+        public virtual void DeleteASpaceWithLoggedInUser_Successful_API()
         {
             string[] tagsOfScenario = new string[] {
-                    "API",
-                    "loggedInUser",
-                    "successful",
-                    "createSpace"};
+                    "tag1"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a space with logged in user _ successful _ API", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a space with logged in user _ successful _ API", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -142,12 +136,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                CreateASpaceViaAPIFeature.FeatureSetup();
+                DeleteASpaceViaAPIFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                CreateASpaceViaAPIFeature.FeatureTearDown();
+                DeleteASpaceViaAPIFeature.FeatureTearDown();
             }
         }
     }
