@@ -17,17 +17,33 @@ namespace APITest.StepDefinitions
             Assert.NotNull(response);
         }
 
-        [When(@"The logged in user requests the second api in oreder to call spaces")]
-        public async void WhenTheLoggedInUserRequestsTheSecondApiInOrederToCallSpaces()
+        [Then(@"The logged in user requsts create a new space first api")]
+        public async void ThenTheLoggedInUserRequstsCreateANewSpaceFirstApi()
         {
-            var response = await api.Get_Spaces();
+            var response = await api.Get_New_Spaces();
             Assert.NotNull(response);
         }
 
-        [When(@"The logged in user requests the third api in oreder to call spaces")]
-        public void WhenTheLoggedInUserRequestsTheThirdApiInOrederToCallSpaces()
+        [Then(@"The logged in user requsts create a new space second api")]
+        public async void ThenTheLoggedInUserRequstsCreateANewSpaceSecondApi()
         {
-            
+            var response = await api.Second_Request_Get_New_Spaces();
+            Assert.NotNull(response);
         }
+
+        [Then(@"The logged in user requsts create a new space third api")]
+        public async void ThenTheLoggedInUserRequstsCreateANewSpaceThirdApi()
+        {
+            var response = await api.Third_Request_Get_New_Spaces();
+            Assert.NotNull(response);
+        }
+
+        [Then(@"The logged in user requsts create a new space fourth api")]
+        public async void ThenTheLoggedInUserRequstsCreateANewSpaceFourthApi()
+        {
+            var response = await api.Fourth_Request_Get_New_Spaces();
+            Assert.NotNull(response);
+        }
+
     }
 }

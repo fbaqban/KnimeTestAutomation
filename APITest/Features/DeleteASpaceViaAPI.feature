@@ -1,11 +1,13 @@
-﻿Feature: CreateASpaceViaAPI
+﻿Feature: DeleteASpaceViaAPI
 
-A logged in user create a space using API
+A logged in user delete a created space using api
 
-@API		@loggedInUser		@successful		@createSpace
-Scenario: Create a space with logged in user _ successful _ API
+@tag1
+Scenario: Delete a space with logged in user _ successful _ API
 	When The logged in user requests the first api in oreder to call spaces
 	Then The logged in user requsts create a new space first api
 	And  The logged in user requsts create a new space second api
 	And  The logged in user requsts create a new space third api
 	And  The logged in user requsts create a new space fourth api
+
+
